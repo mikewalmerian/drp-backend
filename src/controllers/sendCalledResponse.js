@@ -6,9 +6,9 @@ export function sendCalledResponse(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*')
 
   const intervalid = setInterval(() => {
-    fetch(
-      `https://t.womtp.com/vidck/v1/?uid=${global.ringpoolData.uid}&campaignid=${global.ringpoolData.campaignid}&prefid=${global.ringpoolData.prefid}`
-    )
+    const url = `https://t.womtp.com/vidck/v1/?uid=${global.ringpoolData.uid}&campaignid=${global.ringpoolData.campaignid}&prefid=${global.ringpoolData.visitorId}`
+
+    fetch(url)
       .then((res) => res.json())
       .then(handleResponse)
 
