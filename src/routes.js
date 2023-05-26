@@ -4,4 +4,5 @@ import { sendCalledResponse } from './controllers/sendCalledResponse.js'
 
 export const router = Router()
 
-router.route('/').post(getRingpoolData).get(sendCalledResponse)
+router.get('/', getRingpoolData)
+router.get('/called', sendCalledResponse)

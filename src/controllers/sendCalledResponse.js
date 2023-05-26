@@ -1,17 +1,25 @@
 import fetch from 'node-fetch'
 
 export function sendCalledResponse(req, res) {
-  console.log('Client Connected 💻')
-  res.setHeader('Content-Type', 'text/event-stream')
-  res.setHeader('Access-Control-Allow-Origin', '*')
+  const url = req.url
+  const paramsSplited = url.split('&')
 
-  const intervalid = setInterval(() => {
-    const url = `https://t.womtp.com/vidck/v1/?uid=${global.ringpoolData.uid}&campaignid=${global.ringpoolData.campaignid}&prefid=${global.ringpoolData.visitorId}`
+  const params = paramsSplited.map((param) => {
+    const [values] = param.split('=').reverse()
+    return values
+  })
+
+  console.log('Client Connected 💻')
+  // res.setHeader('Content-Type', 'text/event-stream')
+  // res.setHeader('Access-Control-Allow-Origin', '*')
+
+  const intervalid = setTimeout(() => {
+    const [uid, campaignid, visitorId] = params
+    const url = `https://t.womtp.com/vidck/v1/?uid=${uid}&campaignid=${campaignid}&prefid=${visitorId}`
 
     fetch(url)
       .then((res) => res.json())
       .then(handleResponse)
-
     function handleResponse(data) {
       const finalResult = JSON.stringify(data)
       const ringpoolCalled = data.called
@@ -19,8 +27,7 @@ export function sendCalledResponse(req, res) {
       if (ringpoolCalled === 'true') {
         clearInterval(intervalid)
       }
-
-      console.log(ringpoolCalled)
+      console.log(data)
     }
   }, 1000)
 

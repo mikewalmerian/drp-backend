@@ -1,14 +1,11 @@
 import fetch from 'node-fetch'
 
 export function getRingpoolData(req, res) {
-  const { body: ringpoolData } = req
+  const url = `http://t.womtp.com/adcd/v1${req.url}`
+  const [urlWhitoutCallback] = url.split('&callback', 1)
 
-  const url = `http://t.womtp.com/adcd/v1/?campaignid=${ringpoolData.campaignid}&prefid=${ringpoolData.visitorId}`
-
-  fetch(url)
-    .then((res) => res.json())
-    .then((data) => {
-      global.ringpoolData = { ...ringpoolData, ...data }
-      res.json(data)
-    })
+  console.log(url)
+  fetch(urlWhitoutCallback)
+    .then((response) => response.json())
+    .then((result) => res.send(result))
 }
