@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import { getRingpoolData } from './controllers/getRingpoolData.js'
 import { sendCalledResponse } from './controllers/sendCalledResponse.js'
+import { getRingpoolData } from './controllers/getRingpoolData.js'
 
 export const router = Router()
 

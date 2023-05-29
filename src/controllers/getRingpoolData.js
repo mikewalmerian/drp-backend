@@ -1,11 +1,11 @@
-import fetch from 'node-fetch'
+export function getRingpoolData(req) {
+  const { url } = req
+  const paramsSplited = url.split('&')
 
-export function getRingpoolData(req, res) {
-  const url = `http://t.womtp.com/adcd/v1${req.url}`
-  const [urlWhitoutCallback] = url.split('&callback', 1)
+  const params = paramsSplited.map((param) => {
+    const [values] = param.split('=').reverse()
+    return values
+  })
 
-  console.log(url)
-  fetch(urlWhitoutCallback)
-    .then((response) => response.json())
-    .then((result) => res.send(result))
+  global.ringpoolParams = params
 }
