@@ -3,7 +3,7 @@ import fetch from 'node-fetch'
 export function sendCalledResponse(req, res) {
   console.log('Cliente Conectado 💻')
   res.setHeader('Content-Type', 'text/event-stream')
-  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Origin', process.env.FRONTEND_URL)
 
   const pollingToCall = setInterval(() => {
     const [uid, campaignid, visitorId] = global.ringpoolParams
